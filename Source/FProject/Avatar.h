@@ -1,5 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
+﻿
 #pragma once
 
 #include "GameFramework/Character.h"
@@ -80,7 +79,8 @@ class FPROJECT_API AAvatar : public ACharacter
 
 	// Подбор предмета
 	void Pickup(APickupItem* item);
-
+	
+	// Объявления UPROPERTY необходимы для корректной конфигурации с BP
 
 	// Настройка ХП
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerProperties)

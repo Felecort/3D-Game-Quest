@@ -1,5 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
+﻿
 #include "FProject.h"
 #include "Avatar.h"
 
@@ -69,8 +68,10 @@ Axis Mapping
 void AAvatar::MoveForward(float amount)
 {
 
-	/*Объект Controller и функции AddMovementInput
-	определены в базовом классе APawn*/
+	/*
+	Объект Controller и функции AddMovementInput
+	определены в базовом классе APawn
+	*/
 	if (Controller && amount)
 	{
 		FVector fwd = GetActorForwardVector();
@@ -93,6 +94,10 @@ void AAvatar::MoveRight(float amount)
 // Функции для изменения координат в инвертированных 2х полуосях
 void AAvatar::MoveLeft(float amount)
 {
+	/*
+	Объект Controller и функции AddMovementInput
+	определены в базовом классе APawn
+	*/
 	if (Controller && amount)
 	{
 		FVector left = -GetActorRightVector();
@@ -126,7 +131,10 @@ Pitch:
 	между двумя кадрами, около 0.016 сек
 */
 
+
+
 // Коэффициент 150 - чувствутельность мыши
+// Не редактируется в BP (а длжно)
 void AAvatar::Yaw(float amount)
 {
 	AddControllerYawInput(150.f * amount * GetWorld()->GetDeltaSeconds());
@@ -139,7 +147,7 @@ void AAvatar::Pitch(float amount)
 
 
 
-// Сообщение отладки
+// Сообщение отладки свызова функции просмотра инвентаря
 void AAvatar::ToggleInventory()
 {
 	if (GEngine)

@@ -1,4 +1,7 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿
+
+// Код, сгенерированный UE
+// Настройки происходят внутри редактора 
 
 #include "FProject.h"
 

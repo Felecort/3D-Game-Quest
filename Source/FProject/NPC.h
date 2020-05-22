@@ -12,6 +12,10 @@ class FPROJECT_API ANPC : public ACharacter
 	// Макрос, необходимый для функционирования внутри UE
 	GENERATED_UCLASS_BODY()
 
+
+	// Объявления UPROPERTY необходимы для корректной конфигурации с BP
+	
+
 	// Сообщение, которое выдаёт NPC
 	// Доступно для редактирования в BP 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCMessage)

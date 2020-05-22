@@ -16,7 +16,9 @@ class FPROJECT_API AMeleeWeapon : public AActor
 	// Макрос, необходимый для функционирования внутри UE
 	GENERATED_UCLASS_BODY()
 		
-		
+
+	// Объявления UPROPERTY необходимы для корректной конфигурации с BP
+
 
 	// Объём урона от атаки оружием
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeleeWeapon)
@@ -36,6 +38,7 @@ class FPROJECT_API AMeleeWeapon : public AActor
 	// коллизия оружия
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 		TSubobjectPtr<class USphereComponent> ProxBox;
+	
 	//UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = MeleeWeapon)
 		//UBoxComponent* ProxBox;
 	
@@ -53,6 +56,7 @@ class FPROJECT_API AMeleeWeapon : public AActor
 		const FHitResult& SweepResult);
 	
 	
+	// Функция, без которой ничего не работает, а должно
 	virtual void Prox_Implementation(AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool
 		bFromSweep, const FHitResult& SweepResult);
@@ -69,7 +73,7 @@ class FPROJECT_API AMeleeWeapon : public AActor
 
 
 /*
- Ошибка: 
+
 Ошибка	LNK2001	unresolved external symbol "public: 
 virtual void __cdecl AMeleeWeapon::Prox_Implementation(class AActor *,
 class UPrimitiveComponent *,int,bool,struct FHitResult const &)" 

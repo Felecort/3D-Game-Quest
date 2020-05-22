@@ -1,5 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
+﻿
 #include "FProject.h"
 #include "NPC.h"
 #include "MyHUD.h"

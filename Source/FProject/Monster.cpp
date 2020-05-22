@@ -16,25 +16,25 @@
 AMonster::AMonster(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
-	// �������� ������
+	// Скорость NPC, Редактируется в BP
 	Speed = 45; 
 	
-	// �� ������
+	// Здоровье NPC 
 	HitPoints = 20; 
 
-	// ����, �������� � �������
+	// Опыт NPC
 	Experience = 0;
 
-	// ������
+	// Лут
 	BPLoot = NULL; 
 
-	// ����
+	// Урон 
 	BaseAttackDamage = 1; 
 
-	// ������������ �����
+	// Задержка между ударами
 	AttackTimeout = 1.5f; 
 
-	// �������� ����� �������
+	// Время с последней атаки
 	TimeSinceLastStrike = 0; 
 	
 	//ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("Proximity Sphere"));
@@ -52,45 +52,42 @@ AMonster::AMonster(const class FPostConstructInitializeProperties& PCIP)
 
 void AMonster::Tick(float DeltaSeconds)
 {
-	// ��������� � �����������
+	// Вызов суперкласса
 	Super::Tick(DeltaSeconds);
 	
-	// �������� ����� �� ������
-
-	// UGameplayStatics::GetPlayerPawn - ��������� ������� ������
+	// Интеллект NPC - движение в сторону игрока
+	
+	// UGameplayStatics::GetPlayerPawn - получение координат игрока
 	AAvatar* avatar = Cast<AAvatar>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	
-	// ���� �� �����, �� ������� �� �������
-	if (!avatar) return;
+	// Если не Avatar, выходим из функции 
+	if (!avatar)
+		return;
 
-	// GetActorLocation - ������ �� ����� �� ���������
+	// GetActorLocation - получаем координаты игрока
 	FVector toPlayer = avatar->GetActorLocation() - GetActorLocation();
 	
-
+	// Расстояние до игрока
 	float distanceToPlayer = toPlayer.Size();
-	// ���� ����� �� � SightSphere �����, ��
-	// ���� ���������� ������
+	
+	// Если игрок вне поля зрения NPC (SightSphere)
+	// выходим  из функции 
 	if (distanceToPlayer > SightSphere->GetScaledSphereRadius())
 	{
-		// ���� ����� � �� ���� ������, �����
-		// ������� �� ������� 
+ 
 		return;
 	}
 
-	// ����������� ������
-	toPlayer /= distanceToPlayer; 
+	// Нормализация вектора для оптимизации 
+	//toPlayer /= distanceToPlayer; 
 
-	// �������� ����� �� ������
+	// Перемещение NPC
 	AddMovementInput(toPlayer, Speed * DeltaSeconds);
 
-	// ��������� ������ ������������ �� ����������
+	// Нормализация вектора для оптимизации
 	toPlayer.Normalize(); 
 	
-	// ������ ������������ � ������
-	AddMovementInput(toPlayer, Speed * DeltaSeconds);
-	
-	
-	// �������� ����� � ����
+	// Поворот NPC лицом к игроку
 	FRotator toPlayerRotation = toPlayer.Rotation();
 	toPlayerRotation.Pitch = 0; 
 	RootComponent->SetWorldRotation(toPlayerRotation);

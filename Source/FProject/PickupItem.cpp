@@ -1,4 +1,5 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿
+
 /*
 #include "FProject.h"
 #include "PickupItem.h"
@@ -10,22 +11,22 @@
 	: Super(PCIP)
 {
 
-	// Г„Г®ГЎГ ГўГ«ГїГ¬ ГЁГ§Г­Г Г·Г Г«ГјГ­Г»ГҐ Г¤Г Г­Г­Г»ГҐ
+	// Устанавливаем название предмета
 	Name = "UNKNOWN_ITEM";
+
+	// Количество предметов
 	Quantity = 0;
 
-	// Г‡Г Г¤Г ВёГ¬ Г®ГЎГєГҐГЄГІ Г¤Г«Гї UE
-	// Г‘ГґГҐГ°Г  ГўГ§Г ГЁГ¬Г®Г¤ГҐГ©Г±ГІГўГЁГ©
+	// Задаём объекты Unreal Engine
 	ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("ProxSphere"));
 
-	// Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї (ГІГҐГЄГ±ГІГіГ°)
-	// Г‘ГҐГІГЄГі Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® Г§Г ГЈГ°ГіГ§ГЁГІГј Гў BP
-	// Г‘ГҐГІГЄГ  Г¤Г®ГЎГ ГўГ«ГҐГ­Г  Г¤Г«Гї Г°ГҐГ Г«ГЁГ±ГІГЁГ·Г­Г®Г© ГґГЁГ§ГЁГЄГЁ Г®ГЎГєГҐГЄГІГ®Гў
+	// Изначально сетка пустая, необходимо настроить в BP
+	// Сетка необходима для реалистичной физики объектов
 	//Mesh = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Mesh"));
 	Mesh = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Mesh"));
 
 
-	// Г„ГҐГ«Г ГҐГ¬ ГЄГ®Г°Г­ГҐГўГ®Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Mash'Г®Г¬
+	// Подключение в форме корневого компонента 
 	RootComponent = Mesh;
 	Mesh->SetSimulatePhysics(true);
 
@@ -33,12 +34,11 @@
 	//ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("ProxSphere"));
 
 
-	// ГЏГ°Г®ГўГҐГ°ГЄГ  ГЇГ°ГЁГЄГ°ГҐГЇГ«ГҐГ­ГЁГї ProxSphere ГЄ ГЄГ®Г°Г­ГҐГўГ®Г¬Гі ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГі Mash
-	// Г‘ГҐГІГЄГ  Г¤Г®Г«Г¦Г­Г  Г¤ГўГЁГЈГ ГІГјГ±Гї Г§Г  ProxSphere
+	// Прикрепление компонента ProxSphere к корневому компоненту Mesh
+	// Когда сетак движется, ProxSphere движется за ней
 	ProxSphere->AttachTo(Mesh);
 
-	// ГЉГ®Г¤ Г§Г ГЇГіГ±ГЄГ  APickupItem::Prox() ГЇГ°ГЁ ГЇГҐГ°ГҐГ±ГҐГ·ГҐГ­ГЁГЁ Г±ГґГҐГ°Г»
-	ProxSphere->OnComponentBeginOverlap.AddDynamic(this, &APickupItem::Prox);
+	//ProxSphere->OnComponentBeginOverlap.AddDynamic(this, &APickupItem::Prox);
 
 }
 */
