@@ -1,4 +1,4 @@
-
+//__2__
 #pragma once
 
 #include "Avatar.h"
@@ -8,6 +8,8 @@
 
 // Макрос, необходимый для работы в UE Editor
 UCLASS()
+
+//__3__
 class FPROJECT_API AMonster : public ACharacter
 {
 
@@ -19,6 +21,9 @@ class FPROJECT_API AMonster : public ACharacter
 	GENERATED_UCLASS_BODY()
 
 	
+	// EditAnywhere - Можно редактировать где угодно внутри редактора UE
+
+
 	// Скорость NPC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MonsterProperties)
 		float Speed;
@@ -43,26 +48,22 @@ class FPROJECT_API AMonster : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MonsterProperties)
 		float AttackTimeout;
 	
-	// Время с последнего урада NPC, настраивается в BP
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = MonsterProperties)
+	// Время с последнего урада NPC
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = MonsterProperties)
 		float TimeSinceLastStrike;
 	
+	// VisibleDefaultsOnly - можно редактировать только во вкладке Defaults
+	// но настраивать можно только для определённого компонента
+	// например: для SightSphere, либо AttackRangeSphere
+
 	// Радиус зрения NPC
-	//UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
-	//	USphereComponent* SightSphere;
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
-		//TSubobjectPtr<class USphereComponent> ProxSphere;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
 		TSubobjectPtr<class USphereComponent> SightSphere;
 
 
-
 	// Радиус атаки NPC
-	//UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
-		//USphereComponent* AttackRangeSphere;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
 		TSubobjectPtr<class USphereComponent> AttackRangeSphere;
-
 
 
 	// Запускается каждый тик
@@ -72,19 +73,7 @@ class FPROJECT_API AMonster : public ACharacter
 
 
 	// Отладка действий
-	// Находится ли игрок в радиусе атаки 
-	inline bool isInSightRange(float d)
-	{
-		return d < SightSphere->GetScaledSphereRadius();
-	}
-
-	// Находится ли игрок в поле зрения 
-	inline bool isInAttackRange(float d)
-	{
-		return d < AttackRangeSphere->GetScaledSphereRadius();
-	}
-
-
+	// Находится ли игрок в радиусе атаки
 };
 
 

@@ -2,30 +2,44 @@
 #include "FProject.h"
 #include "Avatar.h"
 
-
+//__1__
+/*
+ Конструктор класса AAvatar, он принимает аргумент PCIP в виде 
+ ссылки на класс FPostConstructInitializeProperties, причём ссылка const 
+ (т.е. не подразумевается производить изменения внутри). 
+ Далее этот аргумент передаётся в конструктор базового класса 
+ и выполняется базовый конструктор. 
+ Затем выполняется код внутри конструктора.
+*/
 AAvatar::AAvatar(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
+	// Присваивание количества ХП 
 	Hp = MaxHp = 100;
 }
 
-/*
-AAvatar::AAvatar(const class FObjectInitializer& PCIP) : Super(PCIP)
-{
-	Hp = MaxHp = 100;
-}
-*/
+
 
 // УПРАВЛЕНИЕ ПЕРСОНАЖЕМ
 
+// UInputComponent - позволяет Actor связывать события для делегирования функций
+// SetupPlayerInputComponent - позволяет устанавливать пользовательсктие привязки ввода
 // Функция ищет привязки осей заданных в настройках UE
+
 void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
 
-	// Проверка нажатия клавиши
+	// BindAxis - привязка осей. BindAction - привязка клавиш
+
+	// Проверка на наличие вводных данных
 	check(InputComponent);
 
 
+	// "Inventory" - имя, указанное в настройках проекта UE
+	// IE_Pressed - клавища нажата 
+	// this - ссылка на самого себя 
+	// &AAvatar::MoveForward - указываем функцию, с которой работаем
+	
 	// Открытие инвентаря
 	InputComponent->BindAction("Inventory", IE_Pressed, this, &AAvatar::ToggleInventory);
 
@@ -61,19 +75,17 @@ Axis Mapping
 */
 
 
-
 // Объекты Controller и GetActorForwardVector определены внутри
-// базового класса APawn
+// базового класса APawn. Controller - нефизический Actor 
 // Функции для изменения координат в 2х полуосях
 void AAvatar::MoveForward(float amount)
 {
 
-	/*
-	Объект Controller и функции AddMovementInput
-	определены в базовом классе APawn
-	*/
+
 	if (Controller && amount)
 	{
+		// Получаем вектор игрока
+		// Изменяем его. AddMovementInput - движение по заданному вектору
 		FVector fwd = GetActorForwardVector();
 		AddMovementInput(fwd, amount);
 	}
@@ -88,18 +100,20 @@ void AAvatar::MoveRight(float amount)
 }
 
 
-
+/*
+Объект Controller и функции AddMovementInput
+определены в базовом классе APawn
+*/
 
 
 // Функции для изменения координат в инвертированных 2х полуосях
 void AAvatar::MoveLeft(float amount)
 {
-	/*
-	Объект Controller и функции AddMovementInput
-	определены в базовом классе APawn
-	*/
+
 	if (Controller && amount)
 	{
+		// Получаем вектор игрока
+		// Изменяем его. AddMovementInput - движение по заданному вектору
 		FVector left = -GetActorRightVector();
 		AddMovementInput(left, amount);
 	}
@@ -107,6 +121,8 @@ void AAvatar::MoveLeft(float amount)
 {
 	if (Controller && amount)
 	{
+		// Получаем вектор игрока
+		// Изменяем его. AddMovementInput - движение по заданному вектору
 		FVector back = -GetActorForwardVector();
 		AddMovementInput(back, amount);
 	}
@@ -132,68 +148,37 @@ Pitch:
 */
 
 
-
+// AddControllerYawInput аналогично AddMovementInput, но для вращения
 // Коэффициент 150 - чувствутельность мыши
-// Не редактируется в BP (а длжно)
+
+// GetDeltaSeconds - разница во времени межу кадрами
+// GetWorld - получение кешированного указателя мира, в котором находится Actor
 void AAvatar::Yaw(float amount)
 {
+	// AddControllerYawInput - вращение камеры по горизонтали - рыскание 
 	AddControllerYawInput(150.f * amount * GetWorld()->GetDeltaSeconds());
 }
 
 void AAvatar::Pitch(float amount)
 {
+	// AddControllerYawInput - вращение камеры по горизонтали - тангаж 
 	AddControllerPitchInput(150.f * amount * GetWorld()->GetDeltaSeconds());
 }
-
 
 
 // Сообщение отладки свызова функции просмотра инвентаря
 void AAvatar::ToggleInventory()
 {
+	// GEngine - абстрактный базовый класс длявсех классов движка
+	// отвечает за управление системами 
 	if (GEngine)
+
 	{
-		GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, "Showinginventory...");
+		// 0 - "ключ" для предотвращения многократного вывода сообщения
+		// 5.f - время отображения
+		// FColor::Red - цвет
+		// "Showing Inventory..." - текст сообщения
+		GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, "Showing Inventory...");
 	}
 }
 
-
-
-/*
-
-
-// Инвентарь
-void AAvatar::ToggleInventory()
-{
-	// Получаем контроллер и HUD
-	APlayerController* PController = GetWorld() - > GetFirstPlayerController();
-	AMyHUD* hud = Cast<AMyHUD>(PController->GetHUD());
-	
-	
-	// Если инвентарь отображается, то прекращаем отображать его
-	if (inventoryShowing)
-	{
-		hud->clearWidgets();
-		inventoryShowing = false;
-		PController->bShowMouseCursor = false;
-		return;
-	}
-
-	// Иначе отображаем инвентарь игрока
-	inventoryShowing = true;
-	PController->bShowMouseCursor = true;
-	
-	for (TMap<FString, int>::TIterator it = Backpack.CreateIterator(); it; ++it)
-	{
-
-		// Конкатенация имени и количествва предмета 
-		FString fs = it->Key + FString::Printf(TEXT(" x %d"), it - > Value);
-		UTexture2D* tex;
-		if (Icons.Find(it->Key))
-			tex = Icons[it->Key];
-		hud->addWidget(Widget(Icon(fs, tex)));
-	}
-}
-
-
-
-*/

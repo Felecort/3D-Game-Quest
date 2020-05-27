@@ -4,23 +4,16 @@
 #include "MyHUD.h"
 #include "Avatar.h"
 
-/*
-ANPC::ANPC(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP)
-{
-	//Инициализация в конструкторе путем вызова CreateDefaultSubobject
-	//Убитые 8 часов на написание этой строки
-	ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("Proximity Sphere"));
-}
-*/
-
 
 // СФЕРА ВЗАИМОДЕЙСТВИЙ 
 
 
+//__1__
 ANPC::ANPC(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP)
 {
 	//Инициализация в конструкторе путем вызова CreateDefaultSubobject
 	//Убитые 8 часов на написание этой строки
+	//__4__
 	ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("Proximity Sphere"));
 	//ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("ProxSphere"));
 	

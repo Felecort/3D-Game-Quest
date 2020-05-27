@@ -1,4 +1,4 @@
-﻿
+﻿//__1__
 #pragma once
 
 #include "GameFramework/Character.h"
@@ -7,6 +7,8 @@
 
 // Макрос, необходимый для работы в UE Editor
 UCLASS()
+
+//__3__
 class FPROJECT_API ANPC : public ACharacter
 {
 	// Макрос, необходимый для функционирования внутри UE
@@ -23,7 +25,8 @@ class FPROJECT_API ANPC : public ACharacter
 	
 	// Сфера взаимодействия игрока и NPC
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision) USphereComponent* ProxSphere;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision) TSubobjectPtr<class USphereComponent> ProxSphere;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
+		TSubobjectPtr<class USphereComponent> ProxSphere;
 		
 
 	// Объявление сферы объёма границ

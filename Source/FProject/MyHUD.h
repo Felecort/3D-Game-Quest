@@ -1,4 +1,5 @@
 ﻿
+//__2__
 #pragma once
 
 #include "GameFramework/HUD.h"
@@ -25,17 +26,7 @@ struct Message
 
 	// Псевдо-текстура лица NPC (И много других функций)
 	UTexture2D* tex;
-	
-	/*
-	Message()
-	{
-		// Время отображения сообщения
-		time = 5.f;
 
-		// Цвет текста
-		color = FColor::White;
-	}
-	*/
 
 	// Перегруженные функции 
 
@@ -50,34 +41,11 @@ struct Message
 	}
 
 
-
 	Message(FString iMessage, float iTime, FColor iColor)
 	{
 		message = iMessage;
 		time = iTime;
 		color = iColor;
-	}
-	
-
-
-	Message(FString iMessage, float iTime, FColor iFrontColor, FColor iBackColor)
-	{
-		message = iMessage;
-		time = iTime;
-		frontColor = iFrontColor;
-		backColor = iBackColor;
-		tex = 0;
-	}
-
-
-
-	Message(UTexture2D* iTex, FString iMessage, float iTime, FColor iFrontColor, FColor iBackColor)
-	{
-		tex = iTex;
-		message = iMessage;
-		time = iTime;
-		frontColor = iFrontColor;
-		backColor = iBackColor;
 	}
 };
 
@@ -88,6 +56,8 @@ struct Message
 
 // Макрос, необходимый для работы в UE Editor
 UCLASS()
+
+//__3__
 class FPROJECT_API AMyHUD : public AHUD
 {
 	// Макрос, необходимый для функционирования внутри UE
@@ -95,7 +65,8 @@ class FPROJECT_API AMyHUD : public AHUD
 
 	// Настройки шрифта, используемого для отображения текста в HUD 
 	// Сам шрифт устанавливается в BP
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HUDFont) UFont* hudFont;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HUDFont)
+		UFont* hudFont;
 	
 	// Массив доступных сообщений для отображения
 	TArray<Message> messages;
@@ -112,5 +83,6 @@ class FPROJECT_API AMyHUD : public AHUD
 	// Отрисовка сообщений
 	void DrawMessages();
 
+	// Отрисовка хп бара
 	void DrawHealthbar();
 };

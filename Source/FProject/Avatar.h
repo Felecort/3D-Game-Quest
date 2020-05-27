@@ -1,96 +1,45 @@
 ﻿
+//__2__
+// Директива, необходимая для подключения файлов только 1 раз
 #pragma once
 
 #include "GameFramework/Character.h"
 #include "Avatar.generated.h"
 
 
-// ИНВЕНТАРИЗАЦИЯ И ПОДДБОР ПРЕДМЕТОВ
-
-//TMap<FString,int >
-/*
-Fstrinf    int   UTexture2D*
-
-Имя    количество  текстура
-
-*/
-
-
-
-// Объявление класса для функционирования рюкзака
-// Предварительное объявление нужно для работы компилятора 
-class APickupItem;
-
-
-
-
-
-/*
-UCLASS()
-class FPROJECT_API AAvatar : public ACharacter
-{
-	GENERATED_UCLASS_BODY()
-
-	// Карты предметов в инвентаре
-
-	// FString - предмет, который держит игрок
-	TMap<FString, int> Backpack;
-
-	// Icons - иконка предмета, который держит игрок
-	TMap<FString, UTexture2D*> Icons;
-
-	// Флаг.  Открыт инвентарь или нет
-	bool inventoryShowing;
-
-	// Подбор предмета
-	void Pickup(APickupItem* item);
-
-};
-
-
-struct Item
-{
-	FString name;
-	int qty;
-	UTexture2D* tex;
-};
-
-
-*/
 
 // УПРАВЛЕНИЕ ПЕРСОНАЖЕМ
 
 // Макрос, необходимый для работы в UE Editor
 UCLASS()
+
+//__3__
 class FPROJECT_API AAvatar : public ACharacter
 {
 	// Макрос, необходимый для функционирования внутри UE
 	GENERATED_UCLASS_BODY()
 
-
-	// Карта для рюкзака – backpack игрока
-	TMap<FString, int> Backpack;
-
-	// Значки для предметов в рюкзаке, просматриваются строкой
-	TMap<FString, UTexture2D*> Icons;
-
-	// Флаг.  Открыт инвентарь или нет
-	bool inventoryShowing;
-
-	// Подбор предмета
-	void Pickup(APickupItem* item);
-	
-	// Объявления UPROPERTY необходимы для корректной конфигурации с BP
+	// Объявления UPROPERTY необходимы для конфигурации с BP
 
 	// Настройка ХП
+
+	// EditAnywhere, BlueprintReadWrite - параметры для редактирования внутри редактора UE
+	// PlayerProperties - то, к кому мы применяем заданные свойства
+	// *тип* *имя* - переменная, которую мы объявляем
+
+	// Объявление переменной для счётчика ХП
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerProperties)
 		float Hp;
 
+	// Объявление переменной для счётчика максимального кол-ва ХП
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerProperties)
 		float MaxHp;
 
+	// объявление функций для управления персонажем 
+
 	// Функции, работающие при движении игрока
 	// SetupPlayerInputComponent - виртуальная функция в базовом классе Apawn
+	// override - модификатор, необходимый для корректной работы 
 	void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	
 	// Перемещение игрока
@@ -104,10 +53,8 @@ class FPROJECT_API AAvatar : public ACharacter
 	void Pitch(float amount);
 
 
-	// Отображение инвентаря
+	// Отладка инвентаря
 	void ToggleInventory();
-
-	
 	
 };
 
