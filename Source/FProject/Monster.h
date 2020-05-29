@@ -1,4 +1,4 @@
-//__2__
+
 #pragma once
 
 #include "Avatar.h"
@@ -9,7 +9,7 @@
 // Макрос, необходимый для работы в UE Editor
 UCLASS()
 
-//__3__
+
 class FPROJECT_API AMonster : public ACharacter
 {
 

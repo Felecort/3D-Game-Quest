@@ -8,12 +8,10 @@
 // СФЕРА ВЗАИМОДЕЙСТВИЙ 
 
 
-//__1__
 ANPC::ANPC(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP)
 {
 	//Инициализация в конструкторе путем вызова CreateDefaultSubobject
 	//Убитые 8 часов на написание этой строки
-	//__4__
 	ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("Proximity Sphere"));
 	//ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("ProxSphere"));
 	
@@ -61,8 +59,7 @@ void ANPC::Prox_Implementation(AActor* OtherActor, UPrimitiveComponent*
 	{
 		AMyHUD* hud = Cast<AMyHUD>(PController->GetHUD());
 		hud->addMessage(Message(NpcMessage, 5.f, FColor::White));
-		//hud->addMessage(Message(Face, Name + FString(": ") + NpcMessage, 5.f, FColor::White, FColor::Black));
-	
+
 	}
 
 }

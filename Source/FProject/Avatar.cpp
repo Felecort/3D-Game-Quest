@@ -2,7 +2,6 @@
 #include "FProject.h"
 #include "Avatar.h"
 
-//__1__
 /*
  Конструктор класса AAvatar, он принимает аргумент PCIP в виде 
  ссылки на класс FPostConstructInitializeProperties, причём ссылка const 
@@ -42,7 +41,11 @@ void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 	
 	// Открытие инвентаря
 	InputComponent->BindAction("Inventory", IE_Pressed, this, &AAvatar::ToggleInventory);
+	// аналогично *InputComponent.BindAction?? но -> может быть перегружен
+	// обращение к свойствам BindAction
+	
 
+	// Привязки осей Forward - имя оси
 
 	// Пердвижение персонажа
 	InputComponent->BindAxis("Forward", this, &AAvatar::MoveForward);
@@ -85,16 +88,18 @@ void AAvatar::MoveForward(float amount)
 	if (Controller && amount)
 	{
 		// Получаем вектор игрока
+		FVector forward = GetActorForwardVector();
 		// Изменяем его. AddMovementInput - движение по заданному вектору
-		FVector fwd = GetActorForwardVector();
-		AddMovementInput(fwd, amount);
+		AddMovementInput(forward, amount);
 	}
 }
 void AAvatar::MoveRight(float amount)
 {
 	if (Controller && amount)
 	{
+		// Получаем вектор игрока
 		FVector right = GetActorRightVector();
+		// Изменяем его. AddMovementInput - движение по заданному вектору
 		AddMovementInput(right, amount);
 	}
 }
@@ -112,9 +117,9 @@ void AAvatar::MoveLeft(float amount)
 
 	if (Controller && amount)
 	{
-		// Получаем вектор игрока
-		// Изменяем его. AddMovementInput - движение по заданному вектору
+		// Получаем вектор игрока 
 		FVector left = -GetActorRightVector();
+		// Изменяем его. AddMovementInput - движение по заданному вектору
 		AddMovementInput(left, amount);
 	}
 } void AAvatar::MoveBack(float amount)
@@ -122,8 +127,8 @@ void AAvatar::MoveLeft(float amount)
 	if (Controller && amount)
 	{
 		// Получаем вектор игрока
-		// Изменяем его. AddMovementInput - движение по заданному вектору
 		FVector back = -GetActorForwardVector();
+		// Изменяем его. AddMovementInput - движение по заданному вектору
 		AddMovementInput(back, amount);
 	}
 }
@@ -179,6 +184,7 @@ void AAvatar::ToggleInventory()
 		// FColor::Red - цвет
 		// "Showing Inventory..." - текст сообщения
 		GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, "Showing Inventory...");
+		
 	}
 }
 

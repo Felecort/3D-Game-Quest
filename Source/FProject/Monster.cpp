@@ -2,18 +2,11 @@
 #include "FProject.h"
 #include "Monster.h"
 #include "MyHUD.h"
-
-
-//#include "FProject.h"
-//#include "NPC.h"
-//#include "MyHUD.h"
 #include "Avatar.h"
 
 
-//#include "MyHUD.h"
-//#include "Avatar.h"
 
-//__1__
+
 AMonster::AMonster(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
@@ -35,16 +28,16 @@ AMonster::AMonster(const class FPostConstructInitializeProperties& PCIP)
 	// Время с последней атаки
 	TimeSinceLastStrike = 0; 
 	
-	//__4__
+
 	SightSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("SightSphere"));
 	
-	//__5__
+
 	SightSphere->AttachTo(RootComponent);
 	
-	//__4__
+
 	AttackRangeSphere = PCIP.CreateDefaultSubobject <USphereComponent>(this, TEXT("AttackRangeSphere"));
 	
-	//__5__
+
 	AttackRangeSphere->AttachTo(RootComponent);
 
 }

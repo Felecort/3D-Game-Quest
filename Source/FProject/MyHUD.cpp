@@ -3,7 +3,7 @@
 #include "MyHUD.h"
 #include "Avatar.h"
 
-//__1__
+
 AMyHUD::AMyHUD(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {

@@ -1,5 +1,4 @@
 ﻿
-//__2__
 #pragma once
 
 #include "GameFramework/HUD.h"
@@ -51,13 +50,9 @@ struct Message
 
 
 
-
-
-
 // Макрос, необходимый для работы в UE Editor
 UCLASS()
 
-//__3__
 class FPROJECT_API AMyHUD : public AHUD
 {
 	// Макрос, необходимый для функционирования внутри UE
