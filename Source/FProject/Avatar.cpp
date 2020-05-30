@@ -10,8 +10,7 @@
  и выполняется базовый конструктор. 
  Затем выполняется код внутри конструктора.
 */
-AAvatar::AAvatar(const class FPostConstructInitializeProperties& PCIP)
-	: Super(PCIP)
+AAvatar::AAvatar(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP)
 {
 	// Присваивание количества ХП 
 	Hp = MaxHp = 100;
@@ -51,7 +50,7 @@ void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 	InputComponent->BindAxis("Forward", this, &AAvatar::MoveForward);
 	InputComponent->BindAxis("Strafe", this, &AAvatar::MoveRight);
 
-	// Поворот камеры
+	// Поворот камеры: рыскание и тангаж
 	InputComponent->BindAxis("Yaw", this, &AAvatar::Yaw);
 	InputComponent->BindAxis("Pitch", this, &AAvatar::Pitch);
 }
@@ -81,26 +80,26 @@ Axis Mapping
 // Объекты Controller и GetActorForwardVector определены внутри
 // базового класса APawn. Controller - нефизический Actor 
 // Функции для изменения координат в 2х полуосях
-void AAvatar::MoveForward(float amount)
+void AAvatar::MoveForward(float Value)
 {
 
 
-	if (Controller && amount)
+	if (Controller && Value)
 	{
 		// Получаем вектор игрока
 		FVector forward = GetActorForwardVector();
 		// Изменяем его. AddMovementInput - движение по заданному вектору
-		AddMovementInput(forward, amount);
+		AddMovementInput(forward, Value);
 	}
 }
-void AAvatar::MoveRight(float amount)
+void AAvatar::MoveRight(float Value)
 {
-	if (Controller && amount)
+	if (Controller && Value)
 	{
 		// Получаем вектор игрока
 		FVector right = GetActorRightVector();
 		// Изменяем его. AddMovementInput - движение по заданному вектору
-		AddMovementInput(right, amount);
+		AddMovementInput(right, Value);
 	}
 }
 
@@ -112,24 +111,24 @@ void AAvatar::MoveRight(float amount)
 
 
 // Функции для изменения координат в инвертированных 2х полуосях
-void AAvatar::MoveLeft(float amount)
+void AAvatar::MoveLeft(float Value)
 {
 
-	if (Controller && amount)
+	if (Controller && Value)
 	{
 		// Получаем вектор игрока 
 		FVector left = -GetActorRightVector();
 		// Изменяем его. AddMovementInput - движение по заданному вектору
-		AddMovementInput(left, amount);
+		AddMovementInput(left, Value);
 	}
-} void AAvatar::MoveBack(float amount)
+} void AAvatar::MoveBack(float Value)
 {
-	if (Controller && amount)
+	if (Controller && Value)
 	{
 		// Получаем вектор игрока
 		FVector back = -GetActorForwardVector();
 		// Изменяем его. AddMovementInput - движение по заданному вектору
-		AddMovementInput(back, amount);
+		AddMovementInput(back, Value);
 	}
 }
 
@@ -158,16 +157,16 @@ Pitch:
 
 // GetDeltaSeconds - разница во времени межу кадрами
 // GetWorld - получение кешированного указателя мира, в котором находится Actor
-void AAvatar::Yaw(float amount)
+void AAvatar::Yaw(float Value)
 {
 	// AddControllerYawInput - вращение камеры по горизонтали - рыскание 
-	AddControllerYawInput(150.f * amount * GetWorld()->GetDeltaSeconds());
+	AddControllerYawInput(150.f * Value * GetWorld()->GetDeltaSeconds());
 }
 
-void AAvatar::Pitch(float amount)
+void AAvatar::Pitch(float Value)
 {
 	// AddControllerYawInput - вращение камеры по горизонтали - тангаж 
-	AddControllerPitchInput(150.f * amount * GetWorld()->GetDeltaSeconds());
+	AddControllerPitchInput(150.f * Value * GetWorld()->GetDeltaSeconds());
 }
 
 

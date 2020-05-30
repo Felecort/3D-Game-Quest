@@ -23,6 +23,9 @@ class FPROJECT_API AAvatar : public ACharacter
 
 	// Настройка ХП
 
+
+	// Для переменных, не являющихся указателями нужно использовать EditAnywhere  BlueprintReadWrite
+
 	// EditAnywhere, BlueprintReadWrite - параметры для редактирования внутри редактора UE
 	// PlayerProperties - то, к кому мы применяем заданные свойства
 	// *тип* *имя* - переменная, которую мы объявляем
@@ -38,19 +41,20 @@ class FPROJECT_API AAvatar : public ACharacter
 	// объявление функций для управления персонажем 
 
 	// Функции, работающие при движении игрока
-	// SetupPlayerInputComponent - виртуальная функция в базовом классе Apawn
+	// SetupPlayerInputComponent - виртуальная функция в базовом классе Apawn,
+		// позволяет устанавливать пользоветельские привязки ввода
 	// override - модификатор, необходимый для корректной работы 
 	void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	
 	// Перемещение игрока
-	void MoveForward(float amount);
-	void MoveRight(float amount);
-	void MoveBack(float amount);
-	void MoveLeft(float amount);
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+	void MoveBack(float Value);
+	void MoveLeft(float Value);
 
 	// Поворот камеры 
-	void Yaw(float amount);
-	void Pitch(float amount);
+	void Yaw(float Value);
+	void Pitch(float Value);
 
 
 	// Отладка инвентаря
